@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Test Suite</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.10.1.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.10.1.js"></script>
+    <script src="js/createPollPageController.js"></script>
+    <script src="js/overviewController.js"></script>
+    <script src="js/common.js"></script>
+    <script>
+
+
+		function updateView() { }
+        const model =
+        {
+            app:
+            {
+                currentPage:'',
+                currentPoll:-1,
+            },
+
+            inputs:
+            {
+                createPoll:
+                {
+                    pollId: - 1,
+                    newnewAlternative: '',
+                    question: '',
+                    options: [],
+                    usersCanAddAlternatives: false,
+                }  
+            },
+
+            polls:
+            [                   
+                {
+                    usersCanAddAlternatives: true,
+                    question: 'Hvorfor er mads så kul?',
+                    options: ['Ja', 'Meget så', 'Selvfølgelig'],
+                },
+            ],
+
+        };
+
+		QUnit.module('Overview Page', function () {
+            QUnit.test('Open Poll', function (assert) {
+                openPoll(0);
+                assert.equal(model.app.currentPage, 'createPoll');
+            });
+
+            QUnit.test('Load Poll', function (assert) {
+                loadPoll(0);
+                assert.equal(model.app.currentPoll, 0);
+			});
+		});
+    </script>
+</body>
+
+</html>
