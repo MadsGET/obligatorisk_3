@@ -12,55 +12,32 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.10.1.js"></script>
+    <script src="js/model.js"></script>
     <script src="js/createPollPageController.js"></script>
     <script src="js/overviewController.js"></script>
     <script src="js/common.js"></script>
     <script>
 
+        let selectedPollIndex = 0;
+        function updateView() {};
 
-		function updateView() { }
-        const model =
-        {
-            app:
-            {
-                currentPage:'',
-                currentPoll:-1,
-            },
+        // Makes a new example poll
+        createOrUpdatePoll();
 
-            inputs:
-            {
-                createPoll:
-                {
-                    pollId: - 1,
-                    newnewAlternative: '',
-                    question: '',
-                    options: [],
-                    usersCanAddAlternatives: false,
-                }  
-            },
-
-            polls:
-            [                   
-                {
-                    usersCanAddAlternatives: true,
-                    question: 'Hvorfor er mads så kul?',
-                    options: ['Ja', 'Meget så', 'Selvfølgelig'],
-                },
-            ],
-
-        };
-
-		QUnit.module('Overview Page', function () {
+        QUnit.module('Overview Page', function () {
+            // Asserts that a poll is opened and page switching.
             QUnit.test('Open Poll', function (assert) {
-                openPoll(0);
+				openPoll(selectedPollIndex);
                 assert.equal(model.app.currentPage, 'createPoll');
             });
 
+            // Asserts that a spesific poll data object is loaded. And correct pollID is assigned.
             QUnit.test('Load Poll', function (assert) {
-                loadPoll(0);
-                assert.equal(model.app.currentPoll, 0);
-			});
-		});
+				loadPoll(selectedPollIndex);
+				assert.equal(model.app.currentPoll, selectedPollIndex);
+				assert.equal(model.inputs.createPoll.pollId, selectedPollIndex);
+            });
+        });
     </script>
 </body>
 
